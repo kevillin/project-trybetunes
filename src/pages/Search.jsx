@@ -9,7 +9,7 @@ export default class Search extends Component {
     buttonDisable: true,
     carregando: false,
     artistSongs: [],
-    achaArtista: false,
+    confereRetorno: false,
     artistName: '',
     searchArtist: '',
   }
@@ -29,13 +29,12 @@ export default class Search extends Component {
     this.setState({ carregando: true }, async () => {
       const { searchArtist } = this.state;
       const artistInfo = await searchAlbumsAPI(searchArtist);
-      console.log(await artistInfo);
       this.setState({
-        achaArtista: true,
         artistName: searchArtist,
         artistSongs: artistInfo,
         searchArtist: '',
         carregando: false,
+        confereRetorno: true,
       });
     });
   };
@@ -46,9 +45,10 @@ export default class Search extends Component {
       searchArtist,
       artistSongs,
       carregando,
-      achaArtista,
       artistName,
+      confereRetorno,
     } = this.state;
+
     return (
       <>
         <Header />
@@ -70,10 +70,9 @@ export default class Search extends Component {
             >
               Pesquisar
             </button>
-            {achaArtista === false
-              && artistSongs.length === 0 ? <h1>Nenhum álbum foi encontrado</h1> : null}
-            {achaArtista
-            && <h1>{`Resultado de álbuns de: ${artistName}`}</h1>}
+            {confereRetorno && artistSongs.length === 0
+              ? <h1>Nenhum álbum foi encontrado</h1>
+              : <h1>{`Resultado de álbuns de: ${artistName}`}</h1>}
             {
               artistSongs.map((artist) => (
                 <>
