@@ -22,7 +22,6 @@ export default class Favorites extends Component {
         loading: false,
       });
     });
-    // não está renderizando, tentei usar a lógica do MusicCard, mas não está dando certo.
   }
 
   render() {
